@@ -10,7 +10,7 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const userStore = useUserStore()
-    const isAdmin =  computed(() => userStore.isAdmin)
+    const isAdmin =  computed(() => userStore.user.isAdmin)
     const router = useRouter()
 
     onMounted(() => {
