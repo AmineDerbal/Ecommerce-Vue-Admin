@@ -6,6 +6,8 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import { mdiLock, mdiAccount } from '@mdi/js'
 
 import App from './App.vue'
 import router from './router'
@@ -13,7 +15,18 @@ import './assets/styles/main.css'
 
 const vuetify = createVuetify({
   components,
-  directives
+  directives,
+  icons: {
+    defaultSet: 'mdi',
+    aliases: {
+      ...aliases,
+      lock: mdiLock,
+      account: mdiAccount
+    },
+    sets: {
+      mdi
+    }
+  }
 })
 
 const app = createApp(App)
