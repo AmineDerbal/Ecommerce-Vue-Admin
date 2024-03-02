@@ -1,6 +1,6 @@
 <script>
 import { useUserStore } from '@/stores/userStore';
-import { computed,ref } from 'vue';
+import { computed,ref,watch } from 'vue';
 import { useRouter } from 'vue-router'
 
 export default {
@@ -10,16 +10,18 @@ export default {
     const userStore = useUserStore()
     const user = ref('')
     const password = ref('') 
-   const isAdmin =  computed(() => userStore.user.isAdmin)
+    const isAdmin =  computed(() => userStore.user.isAdmin)
 
-   const handleSubmit = async() => {
-
-     await userStore.loginAdmin(user.value, password.value)
-
-     if(isAdmin.value){
+   // Check if user is admin and redirect to login page if not
+   watch(isAdmin,(isAdminVal)=>{
+    if(isAdminVal){
       router.push('/')
-     }
+    }
+   },{immediate:true})
 
+  // Login admin
+   const handleSubmit = async() => {
+     await userStore.loginAdmin(user.value, password.value)
    }
 
     return {
