@@ -8,9 +8,7 @@ export default {
 </script>
 
 <template>
- <div>
-  <v-container>
+  <v-app>
    <RouterView />
-  </v-container>
- </div>
+  </v-app>
 </template>
