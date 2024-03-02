@@ -3,6 +3,7 @@ import axios from 'axios'
 import { ref, watch } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
+  // State
   const user = ref({
     username: null,
     email: null,
@@ -11,10 +12,13 @@ export const useUserStore = defineStore('user', () => {
   })
   const isLoading = ref(false)
   const isError = ref(false)
+
+  // Get user from localStorage
   if (localStorage.getItem('user')) {
     user.value = JSON.parse(localStorage.getItem('user'))
   }
 
+  // Watch for changes in user and update localStorage
   watch(
     user,
     (userVal) => {
@@ -25,6 +29,7 @@ export const useUserStore = defineStore('user', () => {
     }
   )
 
+  // Login
   const loginAdmin = async (username, password) => {
     ;(isLoading.value = true), (isError.value = false)
     try {
@@ -43,10 +48,23 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  // Logout
+  const logoutAdmin = () => {
+    user.value = {
+      username: null,
+      email: null,
+      isAdmin: false,
+      accessToken: null
+    }
+    localStorage.removeItem('user')
+  }
+
+  // Return values
   return {
     user,
     isLoading,
     isError,
-    loginAdmin
+    loginAdmin,
+    logoutAdmin
   }
 })
