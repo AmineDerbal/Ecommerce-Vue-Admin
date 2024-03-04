@@ -13,7 +13,9 @@ import {
   mdiBellOutline,
   mdiHome,
   mdiAccountMultiple,
-  mdiPackageVariant
+  mdiPackageVariant,
+  mdiAccountEdit,
+  mdiDelete
 } from '@mdi/js'
 
 import App from './App.vue'
@@ -32,7 +34,9 @@ const vuetify = createVuetify({
       bellOutline: mdiBellOutline,
       home: mdiHome,
       accountMultiple: mdiAccountMultiple,
-      packageVariant: mdiPackageVariant
+      packageVariant: mdiPackageVariant,
+      accountEdit: mdiAccountEdit,
+      delete: mdiDelete
     },
     sets: {
       mdi
