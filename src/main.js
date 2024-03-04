@@ -7,7 +7,14 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
-import { mdiLock, mdiAccount, mdiBellOutline, mdiHome, mdiAccountMultiple } from '@mdi/js'
+import {
+  mdiLock,
+  mdiAccount,
+  mdiBellOutline,
+  mdiHome,
+  mdiAccountMultiple,
+  mdiPackageVariant
+} from '@mdi/js'
 
 import App from './App.vue'
 import router from './router'
@@ -24,7 +31,8 @@ const vuetify = createVuetify({
       account: mdiAccount,
       bellOutline: mdiBellOutline,
       home: mdiHome,
-      accountMultiple: mdiAccountMultiple
+      accountMultiple: mdiAccountMultiple,
+      packageVariant: mdiPackageVariant
     },
     sets: {
       mdi
