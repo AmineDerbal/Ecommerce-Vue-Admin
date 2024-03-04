@@ -8,10 +8,12 @@ export const useUserStore = defineStore('user', () => {
     username: null,
     email: null,
     isAdmin: false,
+    img: null,
     accessToken: null
   })
   const isLoading = ref(false)
   const isError = ref(false)
+  const listUsers = ref([])
 
   // Get user from localStorage
   if (localStorage.getItem('user')) {
@@ -59,12 +61,34 @@ export const useUserStore = defineStore('user', () => {
     localStorage.removeItem('user')
   }
 
+  // fetch list users
+  const fetchListUsers = async () => {
+    isLoading.value = true
+    isError.value = false
+    const options = {
+      headers: {
+        Authorization: `Bearer ${user.value.accessToken}`
+      }
+    }
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}user`, options)
+      listUsers.value = response.data
+    } catch (error) {
+      isError.value = true
+      console.error(error)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   // Return values
   return {
     user,
+    listUsers,
     isLoading,
     isError,
     loginAdmin,
-    logoutAdmin
+    logoutAdmin,
+    fetchListUsers
   }
 })
