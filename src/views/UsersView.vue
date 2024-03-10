@@ -2,7 +2,11 @@
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, computed } from 'vue'
+import {LoaderComponent} from '@/components'
 export default {
+  components: {
+    LoaderComponent
+  },
   data() {
     return {
       selected: [],
@@ -41,25 +45,29 @@ export default {
   setup() {
     const router = useRouter()
     const userStore = useUserStore()
+    const isLoading = computed(() => userStore.isLoading)
     const listUsers = computed(() => userStore.listUsers)
     onMounted(async () => {
       await userStore.fetchListUsers()
     })
 
-    const editUser = (id) => {
-      router.push(`/users/${id}`)
+    const editUser = (user) => {
+      const username = name.replace(/[^a-zA-Z0-9]/g, '')
+      router.push({path: `/user/${user._id}`})
     }
 
     return {
       listUsers,
-      editUser
+      editUser,
+      isLoading
     }
   }
 }
 </script>
 
 <template>
-  <v-main>
+  <LoaderComponent v-if="isLoading" />
+  <v-main v-else>
     <v-data-table
       :headers="headers"
       :items="listUsers"
@@ -69,9 +77,9 @@ export default {
       item-key="_id"
     >
       <template v-slot:item="{ item }">
-        <tr>
-          <td>
-            <v-checkbox v-model="selected" :value="item" :input-value="item"></v-checkbox>
+        <tr class="cursor-pointer" @click="editUser(item)">
+          <td class="checkboxTD">
+            <v-checkbox v-model="selected" :value="item" @click.stop :input-value="item"></v-checkbox>
           </td>
           <td>{{ item._id }}</td>
           <td>{{ item.username }}</td>
@@ -85,3 +93,14 @@ export default {
     </v-data-table>
   </v-main>
 </template>
+
+<style scoped>
+
+.checkboxTD  :deep(.v-input__details), .checkboxTD :deep(.v-messages) {
+  
+  min-height: 0px !important;
+}
+
+  
+
+</style>
