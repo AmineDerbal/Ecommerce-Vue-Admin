@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView, LoginView, UsersView } from '@/views'
+import { HomeView, LoginView, UsersView, UserData } from '@/views'
 import { useUserStore } from '@/stores/userStore'
 import { LayoutView } from '@/components'
 
@@ -20,9 +20,16 @@ const router = createRouter({
         },
         {
           path: '/user',
-          name: 'user',
-          component: UsersView
-        }
+          name: 'usersList',
+          component: UsersView,
+
+        },
+        {
+          path: '/user/:id',
+          name: 'userdetals',
+          component: UserData,
+
+        },
       ]
     },
     {
