@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, computed } from 'vue'
-import {LoaderComponent} from '@/components'
+import { LoaderComponent } from '@/components'
 export default {
   components: {
     LoaderComponent
@@ -52,8 +52,7 @@ export default {
     })
 
     const editUser = (user) => {
-      const username = name.replace(/[^a-zA-Z0-9]/g, '')
-      router.push({path: `/user/${user._id}`})
+      router.push({ path: `/user/${user._id}` })
     }
 
     return {
@@ -79,7 +78,12 @@ export default {
       <template v-slot:item="{ item }">
         <tr class="cursor-pointer" @click="editUser(item)">
           <td class="checkboxTD">
-            <v-checkbox v-model="selected" :value="item" @click.stop :input-value="item"></v-checkbox>
+            <v-checkbox
+              v-model="selected"
+              :value="item"
+              @click.stop
+              :input-value="item"
+            ></v-checkbox>
           </td>
           <td>{{ item._id }}</td>
           <td>{{ item.username }}</td>
@@ -95,12 +99,8 @@ export default {
 </template>
 
 <style scoped>
-
-.checkboxTD  :deep(.v-input__details), .checkboxTD :deep(.v-messages) {
-  
+.checkboxTD :deep(.v-input__details),
+.checkboxTD :deep(.v-messages) {
   min-height: 0px !important;
 }
-
-  
-
 </style>
