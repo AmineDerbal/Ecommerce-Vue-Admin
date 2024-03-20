@@ -19,12 +19,12 @@ export default {
         },
         {
           title: 'ID',
-          key: '_id',
+          key: 'id',
           align: 'start'
         },
         {
           title: 'user',
-          key: 'username',
+          key: 'name',
           align: 'start'
         },
         {
@@ -52,7 +52,7 @@ export default {
     })
 
     const editUser = (user) => {
-      router.push({ path: `/user/${user._id}` })
+      router.push({ path: `/users/${user.id}` })
     }
 
     return {
@@ -70,10 +70,10 @@ export default {
     <v-data-table
       :headers="headers"
       :items="listUsers"
-      item-value="_id"
+      item-value="id"
       select-all
       v-model:selected="selected"
-      item-key="_id"
+      item-key="id"
     >
       <template v-slot:item="{ item }">
         <tr class="cursor-pointer" @click="editUser(item)">
@@ -85,8 +85,8 @@ export default {
               :input-value="item"
             ></v-checkbox>
           </td>
-          <td>{{ item._id }}</td>
-          <td>{{ item.username }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
           <td>{{ item.email }}</td>
           <td class="space-x-2">
             <v-icon class="cursor-pointer" icon="$accountEdit" />
