@@ -5,7 +5,7 @@ import { ref, watch } from 'vue'
 export const useUserStore = defineStore('user', () => {
   // State
   const user = ref({
-    username: null,
+    name: null,
     email: null,
     isAdmin: false,
     img: null,
@@ -32,17 +32,24 @@ export const useUserStore = defineStore('user', () => {
   )
 
   // Login
-  const loginAdmin = async (username, password) => {
+  const loginAdmin = async (email, password) => {
     ;(isLoading.value = true), (isError.value = false)
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}auth/login`, {
-        username,
+        email,
         password
       })
-      user.value.username = response.data.username
-      user.value.email = response.data.email
-      user.value.isAdmin = response.data.isAdmin
+      // check if user role is not admin
+      if(response.data.user.role !== 'admin') {
+        isError.value = true
+        return
+      }
+      user.value.isAdmin = true
+      user.value.name= response.data.user.name
+      user.value.email = response.data.user.email
       user.value.accessToken = response.data.accessToken
+
+
     } catch (error) {
       isError.value = true
     } finally {
