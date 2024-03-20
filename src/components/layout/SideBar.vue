@@ -15,7 +15,7 @@
         <div class="mb-[10px]">
           <h3 className="text-xs text-gray-500">Quick Menu</h3>
           <ul>
-            <router-link to="/user">
+            <router-link to="/users">
               <li class="p-[5px] cursor-pointer flex items-center rounded-[10px]">
                 <v-icon icon="$accountMultiple" color="black" /> Users
               </li></router-link
