@@ -78,7 +78,7 @@ export const useUserStore = defineStore('user', () => {
       }
     }
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}user`, options)
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}users`, options)
       listUsers.value = response.data
     } catch (error) {
       isError.value = true
