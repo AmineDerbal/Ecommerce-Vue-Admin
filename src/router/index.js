@@ -19,14 +19,14 @@ const router = createRouter({
           component: HomeView
         },
         {
-          path: '/user',
+          path: '/users',
           name: 'usersList',
           component: UsersView,
 
         },
         {
-          path: '/user/:id',
-          name: 'userdetals',
+          path: '/users/:id',
+          name: 'userdetails',
           component: UserData,
 
         },
