@@ -7,7 +7,7 @@ export default {
   setup() {
     const router = useRouter()
     const userStore = useUserStore()
-    const user = ref('')
+    const email = ref('')
     const password = ref('')
     const isAdmin = computed(() => userStore.user.isAdmin)
 
@@ -24,12 +24,12 @@ export default {
 
     // Login admin
     const handleSubmit = async () => {
-      await userStore.loginAdmin(user.value, password.value)
+      await userStore.loginAdmin(email.value, password.value)
     }
 
     return {
       handleSubmit,
-      user,
+      email,
       password
     }
   }
@@ -47,11 +47,11 @@ export default {
           <div class="text-h3 mt-4 h-sceen">Login</div>
           <v-form @submit.prevent>
             <v-text-field
-              v-model="user"
-              label="username"
-              type="text"
+              v-model="email"
+              label="email"
+              type="email"
               prepend-icon="$account"
-              placeholder="admin"
+              placeholder="admin@admin.com"
               required
             ></v-text-field>
             <v-text-field
