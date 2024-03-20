@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoading = ref(false)
   const isError = ref(false)
   const listUsers = ref([])
+  const userData = ref({})
 
   // Get user from localStorage
   if (localStorage.getItem('user')) {
@@ -87,7 +88,27 @@ export const useUserStore = defineStore('user', () => {
       isLoading.value = false
     }
   }
-
+  
+  const fetchUserData = async (id) => {
+    isLoading.value = true
+    isError.value = false
+    const options = {
+      headers: {
+        Authorization: `Bearer ${user.value.accessToken}`
+      }
+    }
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}users/${id}`, options)
+      userData.value = response.data
+      console.log(userData.value.email)
+    } catch (error) {
+      isError.value = true
+      console.error(error)
+    } finally {
+      isLoading.value = false
+    }
+  }
+  
   // Return values
   return {
     user,
@@ -96,6 +117,8 @@ export const useUserStore = defineStore('user', () => {
     isError,
     loginAdmin,
     logoutAdmin,
-    fetchListUsers
+    fetchListUsers,
+    fetchUserData,
+    userData
   }
 })
