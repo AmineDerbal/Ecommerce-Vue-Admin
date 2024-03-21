@@ -108,6 +108,27 @@ export const useUserStore = defineStore('user', () => {
       isLoading.value = false
     }
   }
+
+  const createNewUser = async (newUser) => {
+    ;(isLoading.value = true), (isError.value = false)
+    const options = {
+      headers: {
+        Authorization: `Bearer ${user.value.accessToken}`
+      }
+    }
+   
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}auth/admin/register`, newUser, options)
+      if(response.status === 200) {
+        return response.data
+      }
+    } catch(error) {
+      isError.value = true
+      console.error(error)
+    } finally {
+      isLoading.value = false
+    }
+  }
   
   // Return values
   return {
@@ -119,6 +140,7 @@ export const useUserStore = defineStore('user', () => {
     logoutAdmin,
     fetchListUsers,
     fetchUserData,
-    userData
+    userData,
+    createNewUser
   }
 })
