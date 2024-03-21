@@ -39,15 +39,15 @@ export default {
 <template>
     <LoaderComponent v-if="isLoading" />
   
-    <v-main fluid v-else>
-        <v-layout column>
-            <v-card>
-                <v-card-text>
-                    <v-flex class="mb-4">
-                        <v-avatar size="96" class="mr-4">
+    <v-main fluid full-height v-else>
+        <v-layout row >
+            <v-card class="mt-10 mx-auto" width="50%">
+                <v-card-text >
+                    <div class="mb-4 d-flex flex-row justify-center " >
+                        <v-avatar size="96" class="mr-4 rounded">
                             <img :src="userData.image_url !== null ? userData.image_url : blankProfile">
                         </v-avatar>
-                    </v-flex>
+                    </div>
                     <v-text-field
                         v-model="userData.name"
                         label="name"></v-text-field>
@@ -58,13 +58,23 @@ export default {
                 </v-card-text>
                 <v-card-actions>
                     <v-btn color="primary" >
-                        <v-icon left dark>check</v-icon>
                         Save Changes
                     </v-btn>
                 </v-card-actions>
             </v-card>
         </v-layout>
+        <v-layout row full-height class="mt-10" >
+            <div class="w-1/2 mx-auto">
+                <v-btn color="primary" @click="$router.push('/users/create')">
+          
+          Create new User
+      </v-btn>
+            </div>
+          
+
+        </v-layout>
    
     </v-main>
 
 </template>
+
