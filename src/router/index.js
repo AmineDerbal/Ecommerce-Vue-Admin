@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView, LoginView, UsersView, UserData } from '@/views'
+import { HomeView, LoginView, UsersView, UserData, CreateUser } from '@/views'
 import { useUserStore } from '@/stores/userStore'
 import { LayoutView } from '@/components'
 
@@ -28,6 +28,12 @@ const router = createRouter({
           path: '/users/:id',
           name: 'userdetails',
           component: UserData,
+
+        },
+        {
+          path: '/users/create',
+          name: 'createUser',
+          component: CreateUser,
 
         },
       ]
