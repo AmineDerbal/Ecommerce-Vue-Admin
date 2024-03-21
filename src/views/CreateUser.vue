@@ -70,7 +70,7 @@ export default {
 
 <template>
   <v-main>
-    <v-sheet class="mx-auto mt-10" width="300">
+    <v-sheet class="mx-auto mt-10" width="400">
       <div class="text-h5 text-center">Create User</div>
       <v-form @submit.prevent="submit" class="mt-4">
         <v-text-field
