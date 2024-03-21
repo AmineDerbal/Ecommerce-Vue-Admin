@@ -1,8 +1,12 @@
 <script>
+import { ref } from 'vue'
 import { useField, useForm, defineRule } from 'vee-validate'
+import { useUserStore } from '@/stores/userStore'
 
 export default {
   setup() {
+    const userStore = useUserStore()
+
     const { handleSubmit } = useForm({
       validationSchema: {
         name(value) {
@@ -13,6 +17,10 @@ export default {
         email(value) {
           if (/^[a-z|\d]+@[a-z]+\.[a-z|\d]{2,4}$/.test(value)) return true
           return 'Must be a valid email.'
+        },
+        role(value) {
+          if (value) return true
+          return 'Please select a role.'
         },
         password(value) {
           if (value?.length >= 5) return true
@@ -33,15 +41,26 @@ export default {
     const email = useField('email')
     const password = useField('password')
     const confirmPassword = useField('confirmPassword')
+    const role = useField('role')
 
-    const submit = handleSubmit((values) => {
-      console.log(values)
+    const roles = ref(['admin', 'user'])
+
+    const submit = handleSubmit(async (values) => {
+      const user = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      }
+      await userStore.createNewUser(user)
     })
 
     return {
       name,
       email,
       password,
+      role,
+      roles,
       confirmPassword,
       submit
     }
@@ -65,6 +84,12 @@ export default {
           type="email"
           label="email"
         ></v-text-field>
+        <v-select
+          v-model="role.value.value"
+          :error-messages="role.errorMessage.value"
+          label="Role"
+          :items="roles"
+        ></v-select>
         <v-text-field
           v-model="password.value.value"
           :error-messages="password.errorMessage.value"
